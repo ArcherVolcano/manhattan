@@ -1,0 +1,140 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<head>
+<title>Manhattan Live Performance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href="assets/3thParty/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="assets/3thParty/css/bootstrap-theme.min.css"
+	rel="stylesheet" type="text/css" />
+<link href="assets/css/style.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link href="assets/css/custom.css" rel="stylesheet" type="text/css"
+	media="all" />
+<script src="assets/3thParty/js/jquery-3.2.1.min.js"
+	type="text/javascript"></script>
+<script src="assets/3thParty/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body>
+ 	 <div class="header">
+		     <div class="header_top">
+		     	<div class="wrap">
+				 <div class="logo">
+					 <a href="home.html"><img src="assets/images/logo.png" alt="Go Home Page" /></a>
+					 </div>
+				  <div class="menu">
+					<ul>
+						<li><a href="home.html">HOME</a></li>
+						<li class="active"><a href="events.html">EVENTS</a></li>
+						<li><a href="videos.html">VIDEOS</a></li>
+				    	<li><a href="gallery.html">GALLERY</a></li>
+				    	<li><a href="about.html">ABOUT US</a></li>
+				    	<li><a href="contact.html">CONTACT</a></li>
+				    	<div class="clear"></div>
+				    </ul>				    
+				 </div>
+			     <div class="clear"></div>
+		      </div>		   
+		  </div>
+     </div>
+     <div class="main">
+     	<div class="wrap">
+     	    <div class="content_top">
+     	    	<div id="superDiv" class="events">
+	        			<h2>UPCOMING EVENTS <a href="previousevents.html" class="button">View Previous Events</a></h2>
+	        			<div id="sectionDiv" class="section group">
+							<div id="eventDiv" class="event_grid grid_1_of_3 images_1_of_3 events_1_of_3">
+							  <div class="event-time">
+								<h4><span></span></h4>
+								  <h4></h4>
+							  </div>
+							     <div class="event-img">
+								    <a href="blog.html"><img src="" alt=""><span>Read More</span></a>
+							   </div>
+							</div>
+					   </div>
+	        	</div>
+     	    </div>
+		</div>
+	<div class="footer">
+	 <div class="wrap">
+    	<div class="half-footer" style="margin-left:0">
+        <ul class="feeds">
+        	<h3>Contact</h3>
+            <li id="phone"></li>
+            <li id="mobilePhone"></li>
+            <li id="fax"></li>
+            <li id="address"></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/guitar.png" alt=""></div>
+        <div class="clear"></div>
+        </div>
+        <div class="half-footer" style="border:none">
+        <ul class="adress">
+        	<h3>Catch on</h3>
+            <li><a id="facebook" href="#" target="_blank">Facebook</a></li>
+            <li><a  id="twitter" href="#" target="_blank">Twitter</a></li>
+            <li><a id="instagram" href="#" target="_blank">Instagram</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a id="email" href="">manhattan@manhattan.com.tr</a></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/saxophone.png" alt=""></div>
+        </div>
+    	<div class="clear"></div>        
+      </div>
+    </div>
+    <div class="copy">
+    	<p>© 2017 Rights Reseverd | Design by <a href="http://volkanokcu.com">Volkan Okçu</a></p>
+   	</div>
+	<script src="assets/js/custom.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	var events = getAllEntity("AllPublishedEvent");
+	var superDiv = document.getElementById("superDiv");
+	var sectionDiv = document.getElementById("sectionDiv");
+	var eventDiv = document.getElementById("eventDiv");
+	
+	function convertDate(startDate) {
+		var day = startDate.substring(8, 10);
+		var month = startDate.substring(5, 7);
+		var time = startDate.substring(11, 16);
+		var year = startDate.substring(0, 4);
+		var monthValue = getMonthMap(month);
+		var eventDate = day + " " + monthValue + ", " + year;
+		return eventDate;
+	}
+	
+	function createNewEventDiv(i) {
+		if (i == 0) return eventDiv;
+		var div = eventDiv.cloneNode(true);
+		div.id += i;
+		return div;
+	}
+	
+	
+	var i = 0;
+	while (i < events.length) {
+		eventDiv = createNewEventDiv(i);
+		eventDiv.getElementsByTagName("span")[0].innerHTML = events[i].eventName;
+		eventDiv.getElementsByTagName("h4")[1].innerHTML = convertDate(events[i].startDate);
+		eventDiv.getElementsByTagName("a")[0].href =  "/event.html?id=" + events[i].id;
+		eventDiv.getElementsByTagName("img")[0].src = getUploadImagesPath() + events[i].band.picture.link;
+		if (i%3 == 0) {
+			sectionDiv = document.createElement("div");
+			sectionDiv.setAttribute("class", "section group");
+			superDiv.appendChild(sectionDiv);
+		}
+		sectionDiv.appendChild(eventDiv);
+		i += 1;
+	}
+	
+	</script>
+</body>
+</html>
+

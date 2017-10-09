@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manhattan Live Performance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href="assets/css/style.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link href="assets/3thParty/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="assets/3thParty/css/bootstrap-theme.min.css"
+	rel="stylesheet" type="text/css" />
+<link href="assets/css/custom.css" rel="stylesheet" type="text/css" />
+<script src="assets/3thParty/js/jquery-3.2.1.min.js"
+	type="text/javascript"></script>
+<script src="assets/3thParty/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="assets/3thParty/js/bootstrap.min.js" type="text/javascript"></script>
+<script>
+	/* LOGIN CONTROL */
+	$.ajax({
+		type : "GET",
+		url : "IsLogged",
+		asnc : false,
+		success : function(resp) {
+			if (!resp.result) {
+				window.location.href = "login.html";
+			}
+		}
+	});
+</script>
+</head>
+<body>
+		<div class="header">
+		     <div class="header_top">
+		     	<div class="wrap">
+				 <div class="logo">
+					 <a href="home.html"><img src="assets/images/logo.png" alt="Go Home Page" /></a>
+					 </div>
+				  <div class="menu">
+					<ul>
+						<li><a href="adminhome.html">YONETİCİLER</a></li>
+						<li><a href="bandsettings.html">GRUPLAR</a></li>
+			    		<li><a href="eventsettings.html">ETKİNLİKLER</a></li>
+						<li><a href="gallerysettings.html">RESIMLER</a></li>
+						<li class="active"><a href="videosettings.html">VIDEOLAR</a></li>
+						<li><a href="contactsettings.html">İLETİŞİM</a></li>
+						<li><a href="aboutsettings.html">HAKKIMIZDA</a></li>
+				<div class="clear"></div>
+				    </ul>				    
+				 </div>
+			     <div class="clear"></div>
+		      </div>		   
+		  </div>
+     </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 bg-success">
+				<form action="" id="videoForm" method="POST">
+					<div class="form-group">
+						<label for="videoSelect">RESİMLER</label>
+						<select type="text"
+							id="videoSelect" name="videos"
+							onchange="if(this.selectedIndex != 0) selectVideo(this.options[selectedIndex].value);"
+							class="form-control" /)>
+							<option value="default">Düzenlemek İçin Bir Video
+								Seçiniz
+								</opton>
+						</select>
+						<input type="hidden"
+							id="embededLink" name="embededLink" class="form-control" /)>
+					</div>
+					<div class="form-group">
+						<label for="videoHeader">VİDEO BAŞLIĞI</label> <input type="text"
+							id="videoHeader" name="videoHeader" class="form-control" /)>
+						<input type="hidden" id="videoId" class="videoId" name="videoId"/>
+					</div>
+					<div class="form-group">
+						<label for="videoLink" class="col-md-12">YOUTUBE LİNKİ</label> 
+						<input type="text" id="videoLink" name="videoLink" class ="col-md-8"/)>
+						<button type="button" onclick="convertYoutubeLinkToEmbeded()" class="btn-success col-md-4">Kontrol Et</button>
+					</div>
+					<div class="form-group">
+						<iframe id="videoFrame" width="420" height="315" style="display: none"
+							src="">
+						</iframe>
+					</div>
+					<div class="form-group">
+						<button type="button" id="addBtn" onClick="if(validation()) saveEntity();"
+							class="btn-success" style="display: none">Ekle</button>
+						<button type="button" id="updateBtn"
+							onClick="if(validation()) {selectAllMembers(); updateEntity();}"
+							style="display: none" onClick="selectAllMembers();"
+							class="btn-success">Düzenle</button>
+						<button type="button" id="deleteBtn" onClick="deleteEntity();"
+							style="display: none" onClick="selectAllMembers();"
+							class="btn-danger">Sil</button>
+						<button type="button" id="clearBtn" onClick="clearForm();"
+							class="btn-warning">Temizle</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+	 <div class="wrap">
+    	<div class="half-footer" style="margin-left:0">
+        <ul class="feeds">
+        	<h3>Contact</h3>
+            <li id="phone"></li>
+            <li id="mobilePhone"></li>
+            <li id="fax"></li>
+            <li id="address"></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/guitar.png" alt=""></div>
+        <div class="clear"></div>
+        </div>
+        <div class="half-footer" style="border:none">
+        <ul class="adress">
+        	<h3>Catch on</h3>
+            <li><a id="facebook" href="#" target="_blank">Facebook</a></li>
+            <li><a  id="twitter" href="#" target="_blank">Twitter</a></li>
+            <li><a id="instagram" href="#" target="_blank">Instagram</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a id="email" href="mailto:manhattan@manhattan.com.tr">manhattan@manhattan.com.tr</a></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/saxophone.png" alt=""></div>
+        </div>
+    	<div class="clear"></div>        
+      </div>
+    </div>
+    <div class="copy">
+    	<p>© 2017 Rights Reseverd | Design by <a href="http://volkanokcu.com">Volkan Okçu</a></p>
+   	</div>
+	<script src="assets/js/custom.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var videos = getAllEntity("AllVideos");
+		var videoForm = document.getElementById("videoForm");
+		var videoId = document.getElementById("videoId");
+		var videoSelect = document.getElementById("videoSelect");
+		var videoHeader = document.getElementById("videoHeader");
+		var videoLink = document.getElementById("videoLink");
+		var embededLink = document.getElementById("embededLink");
+		var videoFrame = document.getElementById("videoFrame");
+		var id = document.getElementById("videoId");
+		var addBtn = document.getElementById("addBtn");
+		var updateBtn = document.getElementById("updateBtn");
+		var deleteBtn = document.getElementById("deleteBtn");
+		var clearBtn = document.getElementById("clearBtn");
+
+		function createVideoSelect() {
+			if (videos != null) {
+				for (var i = 0; i < videos.length; i++) {
+					var opt = document.createElement("option");
+					opt.text = videos[i].name;
+					opt.value = videos[i].name;
+					videoSelect.appendChild(opt);
+				}
+			}
+		}
+		createVideoSelect();
+		
+		function convertYoutubeLinkToEmbeded() {
+			if(videoLink.value != "" || videoLink != null || isUrlExsist()) {
+				embededLink.value = videoLink.value.replace("watch?v=", "embed/") + "?autoplay=0";
+				videoFrame.src = embededLink.value;
+				videoFrame.removeAttribute("style");
+				if("" != updateBtn.style) {
+					addBtn.style = "";
+				}
+			}
+		}
+		
+		function fillForm(video) {
+			addBtn.style = "display: none";
+			deleteBtn.style = "";
+			updateBtn.style = "";
+			videoFrame.sytle= "";
+			videoId.value = video.id;
+			embededLink.value = video.link;
+			videoFrame.src = video.link;
+			videoFrame.removeAttribute("style");
+			videoHeader.value = video.name;
+		}
+
+		function selectVideo(video) {
+			selectedVideo = null;
+			for (var i = 0; i < videos.length; i++) {
+				if (videos[i].name == video) {
+					selectedVideo = videos[i];
+					break;
+				}
+			}
+			if (selectedVideo != null) {
+				fillForm(selectedVideo);
+			}
+		}
+		
+		function validation() {
+			if("" == videoHeader.value) {
+				alert("Lütfen Video Başlığı Ekleyiniz!");
+				return false;
+			} 
+			else return true;
+		}
+
+		function clearForm() {
+			videoHeader.value = "";
+			videoFrame.src = "";
+			videoLink.value = "";
+			embededLink.value = "";
+			videoId.value = "";
+			addBtn.style = "display: none";
+			videoFrame.style = "display: none";
+			updateBtn.style = "display: none";
+			deleteBtn.style = "display: none";
+			videoSelect.options.length = 0;
+			var opt = document.createElement("option");
+			opt.value = "default";
+			opt.text = "Düzenlemek İçin Bir Video Seçiniz";
+			videoSelect.appendChild(opt);
+			createVideoSelect();
+		}
+
+		/*AJAX REQUESTS */
+		function saveEntity() {
+			videoForm.setAttribute("action", "AddVideo");
+			var result = ajaxCallEntityOperation(videoForm);
+			if (result) {
+				videos = getAllEntity("AllVideos");
+				clearForm();
+			}
+		}
+		
+		function updateEntity() {
+			videoForm.setAttribute("action", "UpdateVideo");
+			var result = ajaxCallEntityOperation(videoForm);
+			if (result) {
+				videos = getAllEntity("AllVideos");
+				clearForm();
+			}
+		}
+
+		function deleteEntity() {
+			videoForm.setAttribute("action", "DeleteVideo");
+			var result = ajaxCallEntityOperation(videoForm);
+			if (result) {
+				videos = getAllEntity("AllVideos");
+				clearForm();
+			}
+		}
+	</script>
+</body>
+</html>

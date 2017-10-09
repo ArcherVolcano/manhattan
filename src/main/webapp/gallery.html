@@ -1,0 +1,166 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<head>
+<title>Manhattan Live Performance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="assets/css/style.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link rel="stylesheet" href="assets/css/swipebox.css">
+<link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
+<script src="assets/3thParty/js/jquery-1.9.0.min.js"
+	type="text/javascript"></script>
+<script src="assets/3thParty/js/ios-orientationchange-fix.js"></script> 
+<script src="assets/3thParty/js/jquery.swipebox.min.js"></script> 
+<script type="text/javascript">
+		jQuery(function($) {
+			$(".swipebox").swipebox();
+		});
+</script>
+	<!------ Eng Light Box ------>	
+</head>
+<body>
+  <div class="header">
+		     <div class="header_top">
+		     	<div class="wrap">
+				 <div class="logo">
+					 <a href="home.html"><img src="assets/images/logo.png" alt="Go Home Page" /></a>
+					 </div>
+				  <div class="menu">
+					<ul>
+						<li><a href="home.html">HOME</a></li>
+						<li><a href="events.html">EVENTS</a></li>
+						<li><a href="videos.html">VIDEOS</a></li>
+				    	<li class="active"><a href="gallery.html">GALLERY</a></li>
+				    	<li><a href="about.html">ABOUT US</a></li>
+				    	<li><a href="contact.html">CONTACT</a></li>
+				    	<div class="clear"></div>
+				    </ul>				    
+				 </div>
+			     <div class="clear"></div>
+		      </div>		   
+		  </div>
+     </div>
+     <div class="main">
+     	<div class="wrap">
+     	    <div class="content_top">
+     	     <div class="gallery">
+           	   <h3>PHOTOS</h3>
+           	   <div id="galleryDiv">
+	         
+		   	   </div>
+	           <div class="projects-bottom-paination">
+					<ul id="paginationUL">
+
+					</ul>
+				</div>		   	  
+               </div>
+              </div>
+		</div>
+     </div>
+	<div class="footer">
+	 <div class="wrap">
+    	<div class="half-footer" style="margin-left:0">
+        <ul class="feeds">
+        	<h3>Contact</h3>
+            <li id="phone"></li>
+            <li id="mobilePhone"></li>
+            <li id="fax"></li>
+            <li id="address"></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/guitar.png" alt=""></div>
+        <div class="clear"></div>
+        </div>
+        <div class="half-footer" style="border:none">
+        <ul class="adress">
+        	<h3>Catch on</h3>
+            <li><a id="facebook" href="#" target="_blank">Facebook</a></li>
+            <li><a  id="twitter" href="#" target="_blank">Twitter</a></li>
+            <li><a id="instagram" href="#" target="_blank">Instagram</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a id="email" href="mailto:manhattan@manhattan.com.tr">manhattan@manhattan.com.tr</a></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/saxophone.png" alt=""></div>
+        </div>
+    	<div class="clear"></div>        
+      </div>
+    </div>
+    <div class="copy">
+    	<p>© 2017 Rights Reseverd | Design by <a href="http://volkanokcu.com">Volkan Okçu</a></p>
+   	</div>
+	<script src="assets/js/custom.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var count = getEntityCount("/PictureCount");
+		var pageNumber = (count / 8) + (count%8 == 0 ? 0 : 1);
+		var url = new URL(window.location.href);
+		var selectedPage = url.searchParams.get("page");
+		
+		//Sayfaya parametresiz olarak gelindiyse 1 nolu sayfaya yönlendir.
+		if (selectedPage == null) selectedPage = 1;
+		
+		/* PAGINATION */
+		var paginationUL = document.getElementById("paginationUL");
+		if (count != null || count !=0) {
+			for (var i = 1; i <= pageNumber; i++) {
+				var li =  document.createElement("li");
+				var a =  document.createElement("a");
+				li.appendChild(a);
+				if(i == selectedPage) {
+					li.setAttribute("class", "active");
+				} else a.setAttribute("href", "/gallery.html?page=" + i);
+				a.innerHTML = i;
+				paginationUL.appendChild(li);
+			}
+		}
+		/* END PAGINATION */
+		
+		/* FILL PICTURES */
+		function createSelectDiv() {
+			var div = document.createElement("div");
+			div.setAttribute("class", "section group");
+			return div;
+		}
+		
+		function createGridDiv() {
+			var div = document.createElement("div");
+			div.setAttribute("class", "grid_1_of_4 images_1_of_4");
+			return div;
+		}
+		
+		var offset = (selectedPage == null || selectedPage == 1) ? 0 : (selectedPage - 1) * 8;
+		var pictures = getEntitiesByLimitAndOffset("/PicturesByLimitAndOffset", 8, offset)
+		var galleryDiv = document.getElementById("galleryDiv");
+		var select = null;
+		if (pictures != null || pictures.length != 0) {
+			for (var i = 0; i < pictures.length; i++) {
+				var grid = createGridDiv();
+				var a = document.createElement("a");
+				a.setAttribute("class", "swipebox");
+				a.setAttribute("title", pictures[i].name);
+				a.setAttribute("href", getUploadImagesPath() + pictures[i].link);
+				var img = document.createElement("img");
+				img.setAttribute("alt", pictures[i].name);
+				img.setAttribute("src", getUploadImagesPath() + pictures[i].link);
+				var span = document.createElement("span");
+				span.setAttribute("class", "zoom-icon");
+				a.appendChild(img);
+				a.appendChild(span);
+				if (i%4 == 0 || select == null) {
+					select = createSelectDiv();
+					grid.appendChild(a);
+					select.appendChild(grid);
+					galleryDiv.appendChild(select);
+				} else {
+					grid.appendChild(a);
+					select.appendChild(grid);
+				}
+			}
+		}
+	</script>
+</body>
+</html>
+

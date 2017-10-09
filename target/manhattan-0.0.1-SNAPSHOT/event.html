@@ -1,0 +1,135 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<head>
+<title>Manhattan Live Performance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href="assets/3thParty/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="assets/3thParty/css/bootstrap-theme.min.css"
+	rel="stylesheet" type="text/css" />
+<link href="assets/css/style.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link href="assets/css/custom.css" rel="stylesheet" type="text/css"
+	media="all" />
+<script src="assets/3thParty/js/jquery-3.2.1.min.js"
+	type="text/javascript"></script>
+<script src="assets/3thParty/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="header">
+		     <div class="header_top">
+		     	<div class="wrap">
+				 <div class="logo">
+					 <a href="home.html"><img src="assets/images/logo.png" alt="Go Home Page" /></a>
+					 </div>
+				  <div class="menu">
+					<ul>
+						<li><a href="home.html">HOME</a></li>
+						<li class="active"><a href="events.html">EVENTS</a></li>
+						<li><a href="videos.html">VIDEOS</a></li>
+				    	<li><a href="gallery.html">GALLERY</a></li>
+				    	<li><a href="about.html">ABOUT US</a></li>
+				    	<li><a href="contact.html">CONTACT</a></li>
+				    	<div class="clear"></div>
+				    </ul>				    
+				 </div>
+			     <div class="clear"></div>
+		      </div>		   
+		  </div>
+     </div>
+     <div class="main">
+     	<div class="wrap">
+     	    <div class="content_top">
+     	    	<div class="blog">
+    					<div class="blog-leftgrids">
+							<div class="image group">
+								<div class="grid images_3_of_1">
+									<a href="#"><img id="eventImg" src="assets/images/events/rollover.jpg" alt=""></a>
+								</div>
+									<div class="grid blog-desc">
+										<h4><span id="eventHeader">Rollover Konseri</span></h4>
+										<h4 id="date">Sep 14TH, 2013</h4>
+										<h3 id="members"><span>Üyeler</span><br></h3>
+										<h3 id="ticketAndCatering">GİRİŞ: </h3>
+										<p>Etkinlik Hakkında</p>
+										<p id="eventInfo"></p>
+								   </div>
+	  						 </div>		  						 
+						</div>   	 			 	   
+		         </div>
+     	    </div>
+		</div>
+     </div>
+	<div class="footer">
+	 <div class="wrap">
+    	<div class="half-footer" style="margin-left:0">
+        <ul class="feeds">
+        	<h3>Contact</h3>
+            <li id="phone"></li>
+            <li id="mobilePhone"></li>
+            <li id="fax"></li>
+            <li id="address"></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/guitar.png" alt=""></div>
+        <div class="clear"></div>
+        </div>
+        <div class="half-footer" style="border:none">
+        <ul class="adress">
+        	<h3>Catch on</h3>
+            <li><a id="facebook" href="#" target="_blank">Facebook</a></li>
+            <li><a  id="twitter" href="#" target="_blank">Twitter</a></li>
+            <li><a id="instagram" href="#" target="_blank">Instagram</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a id="email" href="mailto:manhattan@manhattan.com.tr">manhattan@manhattan.com.tr</a></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/saxophone.png" alt=""></div>
+        </div>
+    	<div class="clear"></div>        
+      </div>
+    </div>
+    <div class="copy">
+    	<p>© 2017 Rights Reseverd | Design by <a href="http://volkanokcu.com">Volkan Okçu</a></p>
+   	</div>
+	<script src="assets/js/custom.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var url = new URL(window.location.href);
+		var id = url.searchParams.get("id");
+		var event = null;
+		function convertDate(startDate) {
+			var day = startDate.substring(8, 10);
+			var month = startDate.substring(5, 7);
+			var time = startDate.substring(11, 16);
+			var year = startDate.substring(0, 4);
+			var monthValue = getMonthMap(month);
+			var eventDate = day + " " + monthValue + ", " + year;
+			return eventDate;
+		}
+		
+		if(id != null) {
+			
+			event = getEntityById("EventById", id);
+			document.getElementById("eventImg").src = getUploadImagesPath() + event.picture.link;
+			document.getElementById("eventHeader").innerHTML = event.eventName;
+			document.getElementById("date").innerHTML = convertDate(event.startDate);
+			document.getElementById("eventInfo").innerHTML = event.eventInfo;
+			document.getElementById("ticketAndCatering").innerHTML += event.ticketPrice;
+			if(event.catering != null) {
+				document.getElementById("ticketAndCatering").innerHTML += " + " + event.catering;
+			}
+			var members = document.getElementById("members");
+			for (var i = 0; i < event.band.bandMembers.length; i++) {
+				members.innerHTML += event.band.bandMembers[i] + "<br>";
+			}
+		} else window.location.replace("/events.html");
+		
+	</script>
+</body>
+</html>
+

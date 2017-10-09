@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Manhattan Live Performance</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css"
+		media="all" />
+	<link href="assets/3thParty/css/bootstrap.min.css" rel="stylesheet"
+		type="text/css" />
+	<link href="assets/3thParty/css/bootstrap-theme.min.css"
+		rel="stylesheet" type="text/css" />
+	<link href="assets/css/custom.css" rel="stylesheet" type="text/css" />
+	<script src="assets/3thParty/js/jquery-3.2.1.min.js"
+		type="text/javascript"></script>
+	<script src="assets/3thParty/js/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="assets/3thParty/js/bootstrap.min.js" type="text/javascript"></script>
+	<script> 
+	/* LOGIN CONTROL */
+    $.ajax({
+    	type: "GET",
+    	url: "IsLogged",
+    	asnc: false,
+    	success: function(resp) {
+    		if(!resp.result) {
+    			window.location.href = "login.html";
+    		}
+    	}
+    });
+    </script> 
+</head>
+<body>
+	<div class="header">
+		     <div class="header_top">
+		     	<div class="wrap">
+				 <div class="logo">
+					 <a href="home.html"><img src="assets/images/logo.png" alt="Go Home Page" /></a>
+					 </div>
+				  <div class="menu">
+					<ul>
+						<li class="active"><a href="adminhome.html">YONETİCİLER</a></li>
+						<li><a href="bandsettings.html">GRUPLAR</a></li>
+			    		<li><a href="eventsettings.html">ETKİNLİKLER</a></li>
+						<li><a href="gallerysettings.html">RESIMLER</a></li>
+						<li><a href="videosettings.html">VIDEOLAR</a></li>
+						<li><a href="contactsettings.html">İLETİŞİM</a></li>
+						<li><a href="aboutsettings.html">HAKKIMIZDA</a></li>
+				<div class="clear"></div>
+				    </ul>				    
+				 </div>
+			     <div class="clear"></div>
+		      </div>		   
+		  </div>
+     </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 bg-success">
+				<form action="" id="adminForm" method="POST" >
+					<div class="form-group">
+						<label for="email">E-Mail</label> 
+						<select type="text" id="adminSelect" name="admins" onchange="if(this.selectedIndex != 0) selectAdmin(this.options[selectedIndex].value);" class="form-control"/)>
+							<option value="default">Düzenlemek İçin Bir Yönetici Seçiniz</opton>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="email">E-Mail</label> 
+						<input type="email" id="email" name="email" class="form-control"/)>
+						<input type="hidden" id="id" name="id"/>
+					</div>
+					<div class="form-group">
+						<label for="firstName">İsim</label> 
+						<input type="text" id="firstName" name="firstName" class="form-control"/)>
+					</div>
+					<div class="form-group">
+						<label for="lastName">Soyisim</label> 
+						<input type="text" id="lastName" name="lastName" class="form-control"/)>
+					</div>
+					<div class="form-group">
+						<label for="password">Yeni Şifre</label> 
+						<input type="password" id="password" name="password" class="form-control"/)>
+					</div>
+					<div class="form-group">
+						<label for="passwordRepeat">Yeni Şifre Tekrar</label> 
+						<input type="password" id="passwordRepeat" name="passwordRepeat" class="form-control"/)>
+					</div>
+					<div class="form-group">
+						<button type="button" id="addBtn"
+							onClick="if(validation()) saveEntity();" class="btn-success">Ekle</button>
+						<button type="button" id="updateBtn"
+							onClick="if(validation()) updateEntity();" style="display: none"
+							onClick="selectAllMembers();" class="btn-success">Düzenle</button>
+						<button type="button" id="deleteBtn" onClick="deleteEntity();"
+							style="display: none" onClick="selectAllMembers();"
+							class="btn-danger">Sil</button>
+						<button type="button" id="clearBtn" onClick="clearForm();"
+							class="btn-warning">Temizle</button>
+						<button type="button" id="logoutBtn" onClick="logout();"
+							class="btn-danger">Çıkış Yap</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+	 <div class="wrap">
+    	<div class="half-footer" style="margin-left:0">
+        <ul class="feeds">
+        	<h3>Contact</h3>
+            <li id="phone"></li>
+            <li id="mobilePhone"></li>
+            <li id="fax"></li>
+            <li id="address"></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/guitar.png" alt=""></div>
+        <div class="clear"></div>
+        </div>
+        <div class="half-footer" style="border:none">
+        <ul class="adress">
+        	<h3>Catch on</h3>
+            <li><a id="facebook" href="#" target="_blank">Facebook</a></li>
+            <li><a  id="twitter" href="#" target="_blank">Twitter</a></li>
+            <li><a id="instagram" href="#" target="_blank">Instagram</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a id="email" href="mailto:manhattan@manhattan.com.tr">manhattan@manhattan.com.tr</a></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/saxophone.png" alt=""></div>
+        </div>
+    	<div class="clear"></div>        
+      </div>
+    </div>
+    <div class="copy">
+    	<p>© 2017 Rights Reseverd | Design by <a href="http://volkanokcu.com">Volkan Okçu</a></p>
+   	</div>
+	<script src="assets/js/custom.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var admins = getAllEntity("AllAdmins");
+		var adminForm = document.getElementById("adminForm");
+		var adminSelect = document.getElementById("adminSelect");
+		var id = document.getElementById("id");
+		var email = document.getElementById("email");
+		var password = document.getElementById("password");
+		var passwordRepeat = document.getElementById("passwordRepeat");
+		var firstName = document.getElementById("firstName");
+		var lastName = document.getElementById("lastName");
+		var addBtn = document.getElementById("addBtn");
+		var updateBtn = document.getElementById("updateBtn");
+		var deleteBtn = document.getElementById("deleteBtn");
+		var clearBtn = document.getElementById("clearBtn");
+		var logoutBtn = document.getElementById("logoutBtn");
+		
+		function createAdminSelect() {
+			if (admins != null) {
+				for (var i = 0; i < admins.length; i++) {
+					var opt = document.createElement("option");
+					opt.text = admins[i].email;
+					opt.value = admins[i].email;
+					adminSelect.appendChild(opt);
+				}
+			}
+		}
+		createAdminSelect();
+		
+		function fillForm(admin) {
+			id.value = admin.id;
+			email.value = admin.email;
+			firstName.value = admin.firstName;
+			lastName.value = admin.lastName;
+			addBtn.style = "display: none";
+			updateBtn.style = "";
+			deleteBtn.style = "";
+		}
+		
+		function selectAdmin(admin) {
+			selectedAdmin = null;
+			for (var i = 0; i < admins.length; i++) {
+				if (admins[i].email == admin) {
+					selectedAdmin = admins[i];
+					break;
+				}
+			}
+			if (selectedAdmin != null) {
+				fillForm(selectedAdmin);
+			}
+		}
+		
+		function clearForm() {
+			id.value = "";
+			email.value = "";
+			password.value = "";
+			passwordRepeat.value = "";
+			firstName.value = "";
+			lastName.value = "";
+			addBtn.style = "";
+			updateBtn.style = "display: none";
+			deleteBtn.style = "display: none";
+			adminSelect.options.length = 0;
+			var opt = document.createElement("option");
+			opt.value = "default";
+			opt.text = "Düzenlemek İçin Bir Yönetici Seçiniz";
+			adminSelect.appendChild(opt);
+			createAdminSelect();
+		}
+		
+		function validation() {
+			if ("" == email.value || "" == password.value || "" == firstName || "" == lastName) {
+				alert("Zorunlu(*) Alanları Doldurunuz!");
+				return false;
+			} 
+			else if (password.value != passwordRepeat.value) {
+				alert("Girilen Şifreler Uyuşmuyor");
+				return false;
+			}
+			return true;
+		}
+		
+		function logout() {
+			$.ajax({
+				type: "POST",
+				url: "Logout",
+				datatype: "json",
+				data : {id: id.value, email: email.value, password: password.value, firstName: firstName.value, lastName: lastName.value},
+				success: function(resp) {
+					window.location.href = "login.html";
+				}
+			});
+		}
+		
+		/*AJAX REQUESTS */
+		function saveEntity() {
+			adminForm.setAttribute("action", "AddAdmin");
+			var result = ajaxCallEntityOperation(adminForm);
+			if(result) {
+				admins = getAllEntity("AllAdmins");
+				clearForm();
+			}
+		}
+		
+		function updateEntity() {
+			adminForm.setAttribute("action", "UpdateAdmin");
+			var result = ajaxCallEntityOperation(adminForm);
+			if(result) {
+				admins = getAllEntity("AllAdmins");
+				clearForm();
+			}
+		}
+		
+		function deleteEntity() {
+			adminForm.setAttribute("action", "DeleteAdmin");
+			var result = ajaxCallEntityOperation(adminForm);
+			if(result) {
+				admins = getAllEntity("AllAdmins");
+				clearForm();
+			}
+		}
+	</script>
+</body>
+</html>

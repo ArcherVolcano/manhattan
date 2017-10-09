@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>manhattan</display-name>
+	<welcome-file-list>
+	   <welcome-file>home.html</welcome-file>
+	 </welcome-file-list>
+	 
+	 <!-- Servlet Context -->
+	<context-param>
+		<param-name>dbName</param-name>
+		<param-value>root</param-value>
+	</context-param>
+	
+	  <context-param>
+		<param-name>uploadImage</param-name>
+		<param-value>root</param-value>
+		</context-param>
+	
+	<!-- Servlet Declerations -->
+	<servlet>
+		<servlet-name>UploadImageController</servlet-name>
+		<servlet-class>manhattan.controller.UploadImageController</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>BandController</servlet-name>
+		<servlet-class>manhattan.controller.BandController</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>EventController</servlet-name>
+		<servlet-class>manhattan.controller.EventController</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AdminController</servlet-name>
+		<servlet-class>manhattan.controller.AdminController</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>LoginController</servlet-name>
+		<servlet-class>manhattan.controller.LoginController</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>GalleryController</servlet-name>
+		<servlet-class>manhattan.controller.GalleryController</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>VideoController</servlet-name>
+		<servlet-class>manhattan.controller.VideoController</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ContactController</servlet-name>
+		<servlet-class>manhattan.controller.ContactController</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AboutController</servlet-name>
+		<servlet-class>manhattan.controller.AboutController</servlet-class>
+	</servlet>
+	
+	
+	<!-- Servlet Mapping -->
+	 <servlet-mapping>
+	 	<servlet-name>AdminController</servlet-name>
+	 	<url-pattern>/AllAdmins</url-pattern>
+	 	<url-pattern>/AddAdmin</url-pattern>
+	 	<url-pattern>/UpdateAdmin</url-pattern>
+	 	<url-pattern>/DeleteAdmin</url-pattern>
+	 </servlet-mapping>
+	 
+	   <servlet-mapping>
+	 	<servlet-name>UploadImageController</servlet-name>
+	 	<url-pattern>/UploadImage</url-pattern>
+	 </servlet-mapping>
+	 
+	 <servlet-mapping>
+	 	<servlet-name>BandController</servlet-name>
+	 	<url-pattern>/BandSettings</url-pattern>
+	 	<url-pattern>/AddBand</url-pattern>
+	 	<url-pattern>/UpdateBand</url-pattern>
+	 	<url-pattern>/DeleteBand</url-pattern>
+	 	<url-pattern>/AllBands</url-pattern>
+	 </servlet-mapping>
+	 
+	 <servlet-mapping>
+	 	<servlet-name>EventController</servlet-name>
+	 	<url-pattern>/EventSettings</url-pattern>
+	 	<url-pattern>/AddEvent</url-pattern>
+	 	<url-pattern>/UpdateEvent</url-pattern>
+	 	<url-pattern>/DeleteEvent</url-pattern>
+	 	<url-pattern>/AllEvents</url-pattern>
+	 	<url-pattern>/AllPublishedEvent</url-pattern>
+	 	<url-pattern>/AllUnPublishedEvent</url-pattern>
+	 	<url-pattern>/EventById</url-pattern>
+	 	<url-pattern>/PublishedEventByLimit</url-pattern>
+	 	<url-pattern>/UnPublishedEventByLimit</url-pattern>
+	 </servlet-mapping>
+	 
+	<servlet-mapping>
+	 	<servlet-name>LoginController</servlet-name>
+	 	<url-pattern>/Login</url-pattern>
+	 	<url-pattern>/Logout</url-pattern>
+	 	<url-pattern>/IsLogged</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	 	<servlet-name>GalleryController</servlet-name>
+	 	<url-pattern>/AllPictures</url-pattern>
+	 	<url-pattern>/PicturesByLimit</url-pattern>
+	 	<url-pattern>/PicturesByLimitAndOffset</url-pattern>
+	 	<url-pattern>/PictureCount</url-pattern>
+	 	<url-pattern>/AddPicture</url-pattern>
+	 	<url-pattern>/DeletePicture</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	 	<servlet-name>VideoController</servlet-name>
+	 	<url-pattern>/AllVideos</url-pattern>
+	 	<url-pattern>/AddVideo</url-pattern>
+	 	<url-pattern>/UpdateVideo</url-pattern>
+	 	<url-pattern>/DeleteVideo</url-pattern>
+	 	<url-pattern>/VideosByLimitAndOffset</url-pattern>
+	 	<url-pattern>/VideoCount</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	 	<servlet-name>ContactController</servlet-name>
+	 	<url-pattern>/GetContact</url-pattern>
+	 	<url-pattern>/AddContact</url-pattern>
+	 	<url-pattern>/UpdateContact</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	 	<servlet-name>AboutController</servlet-name>
+	 	<url-pattern>/GetAbout</url-pattern>
+	 	<url-pattern>/AddAbout</url-pattern>
+	 	<url-pattern>/UpdateAbout</url-pattern>
+	</servlet-mapping>
+	
+	<!--  Filter Decleration -->
+	<filter>
+		<filter-name>AdminFilter</filter-name>
+		<filter-class>manhattan.controller.AdminFilter</filter-class>
+	</filter>
+	
+	<!-- Filter Mapping -->
+	<filter-mapping>
+		<filter-name>AdminFilter</filter-name>
+		<url-pattern>/IsLogged</url-pattern>
+		<url-pattern>/AddEvent</url-pattern>
+		<url-pattern>/DeleteEvent</url-pattern>
+		<url-pattern>/UpdateEvent</url-pattern>
+		<url-pattern>/AddBand</url-pattern>
+	 	<url-pattern>/UpdateBand</url-pattern>
+	 	<url-pattern>/DeleteBand</url-pattern>
+	 	<url-pattern>/AddAdmin</url-pattern>
+	 	<url-pattern>/UpdateAdmin</url-pattern>
+	 	<url-pattern>/DeleteAdmin</url-pattern>
+	 	<url-pattern>/AddPicture</url-pattern>
+	 	<url-pattern>/DeletePicture</url-pattern>
+	 	<url-pattern>/AddVideo</url-pattern>
+	 	<url-pattern>/UpdateVideo</url-pattern>
+	 	<url-pattern>/DeleteVideo</url-pattern>
+	 	<url-pattern>/AddContact</url-pattern>
+	 	<url-pattern>/UpdateContact</url-pattern>
+	 	<url-pattern>/AddAbout</url-pattern>
+	 	<url-pattern>/UpdateAbout</url-pattern>
+	</filter-mapping>
+  
+</web-app>

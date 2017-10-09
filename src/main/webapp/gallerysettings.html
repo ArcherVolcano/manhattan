@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manhattan Live Performance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href="assets/css/style.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link href="assets/3thParty/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="assets/3thParty/css/bootstrap-theme.min.css"
+	rel="stylesheet" type="text/css" />
+<link href="assets/css/custom.css" rel="stylesheet" type="text/css" />
+<script src="assets/3thParty/js/jquery-3.2.1.min.js"
+	type="text/javascript"></script>
+<script src="assets/3thParty/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="assets/3thParty/js/bootstrap.min.js" type="text/javascript"></script>
+<script>
+	/* LOGIN CONTROL */
+	$.ajax({
+		type : "GET",
+		url : "IsLogged",
+		asnc : false,
+		success : function(resp) {
+			if (!resp.result) {
+				window.location.href = "login.html";
+			}
+		}
+	});
+</script>
+</head>
+<body>
+	<div class="header">
+		     <div class="header_top">
+		     	<div class="wrap">
+				 <div class="logo">
+					 <a href="home.html"><img src="assets/images/logo.png" alt="Go Home Page" /></a>
+					 </div>
+				  <div class="menu">
+					<ul>
+						<li><a href="adminhome.html">YONETİCİLER</a></li>
+						<li><a href="bandsettings.html">GRUPLAR</a></li>
+			    		<li><a href="eventsettings.html">ETKİNLİKLER</a></li>
+						<li class="active"><a href="gallerysettings.html">RESIMLER</a></li>
+						<li><a href="videosettings.html">VIDEOLAR</a></li>
+						<li><a href="contactsettings.html">İLETİŞİM</a></li>
+						<li><a href="aboutsettings.html">HAKKIMIZDA</a></li>
+				<div class="clear"></div>
+				    </ul>				    
+				 </div>
+			     <div class="clear"></div>
+		      </div>		   
+		  </div>
+     </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 bg-success">
+				<form action="" id="pictureForm" method="POST" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="pictureSelect">RESİMLER</label> <select type="text"
+							id="pictureSelect" name="pictures"
+							onchange="if(this.selectedIndex != 0) selectPicture(this.options[selectedIndex].value);"
+							class="form-control" /)>
+							<option value="default">Düzenlemek İçin Bir Resim
+								Seçiniz
+								</opton>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="pictureHeader">RESİM BAŞLIĞI</label> <input
+							type="text" id="pictureHeader" name="pictureHeader"
+							class="form-control" /)>
+					</div>
+					<div class="form-group">
+						<label for="img">RESİM YÜKLE</label> <input type="file"
+							accept="image/jpeg" id="img" class="form-control" name="img">
+						<img style="display: none" id="pictureImg" name="pictureImg"
+							alt="" src=""> <input type="hidden" id="imgName"
+							name="imgName" /> <input type="hidden" id="imgId" name="imgId" />
+					</div>
+					<div class="form-group">
+						<button type="button" id="addBtn"
+							onClick="saveEntity();" class="btn-success">Ekle</button>
+						<button type="button" id="deleteBtn" onClick="deleteEntity();"
+							style="display: none" onClick="selectAllMembers();"
+							class="btn-danger">Sil</button>
+						<button type="button" id="clearBtn" onClick="clearForm();"
+							class="btn-warning">Temizle</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+	 <div class="wrap">
+    	<div class="half-footer" style="margin-left:0">
+        <ul class="feeds">
+        	<h3>Contact</h3>
+            <li id="phone"></li>
+            <li id="mobilePhone"></li>
+            <li id="fax"></li>
+            <li id="address"></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/guitar.png" alt=""></div>
+        <div class="clear"></div>
+        </div>
+        <div class="half-footer" style="border:none">
+        <ul class="adress">
+        	<h3>Catch on</h3>
+            <li><a id="facebook" href="#" target="_blank">Facebook</a></li>
+            <li><a  id="twitter" href="#" target="_blank">Twitter</a></li>
+            <li><a id="instagram" href="#" target="_blank">Instagram</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a id="email" href="mailto:manhattan@manhattan.com.tr">manhattan@manhattan.com.tr</a></li>
+        </ul>
+        <div class="footer-pic"><img src="assets/images/saxophone.png" alt=""></div>
+        </div>
+    	<div class="clear"></div>        
+      </div>
+    </div>
+    <div class="copy">
+    	<p>© 2017 Rights Reseverd | Design by <a href="http://volkanokcu.com">Volkan Okçu</a></p>
+   	</div>
+	<script src="assets/js/custom.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var pictures = getAllEntity("AllPictures");
+		var pictureForm = document.getElementById("pictureForm");
+		var pictureSelect = document.getElementById("pictureSelect");
+		var pictureHeader = document.getElementById("pictureHeader");
+		var id = document.getElementById("imgId");
+		var pictureImg = document.getElementById("pictureImg");
+		var addBtn = document.getElementById("addBtn");
+		var deleteBtn = document.getElementById("deleteBtn");
+		var clearBtn = document.getElementById("clearBtn");
+
+		function createPictureSelect() {
+			if (pictures != null) {
+				for (var i = 0; i < pictures.length; i++) {
+					var opt = document.createElement("option");
+					opt.text = pictures[i].id;
+					opt.value = pictures[i].id;
+					pictureSelect.appendChild(opt);
+				}
+			}
+		}
+		createPictureSelect();
+
+		function fillForm(picture) {
+			id.value = picture.id;
+			addBtn.style = "display: none";
+			deleteBtn.style = "";
+			pictureHeader.value = picture.name;
+			imgId.value = picture.id;
+			imgName = picture.link;
+			pictureImg.src = getUploadImagesPath() + picture.link;
+			pictureImg.style = "width: 300px";
+		}
+
+		function selectPicture(picture) {
+			selectedPicture = null;
+			for (var i = 0; i < pictures.length; i++) {
+				if (pictures[i].id == picture) {
+					selectedPicture = pictures[i];
+					break;
+				}
+			}
+			if (selectedPicture != null) {
+				fillForm(selectedPicture);
+			}
+		}
+
+		function clearForm() {
+			id.value = "";
+			addBtn.style = "";
+			img.value = "";
+			pictureHeader.value = "";
+			pictureImg.src = "";
+			pictureImg.style = "display: none";
+			deleteBtn.style = "display: none";
+			pictureSelect.options.length = 0;
+			var opt = document.createElement("option");
+			opt.value = "default";
+			opt.text = "Düzenlemek İçin Bir Resim Seçiniz";
+			pictureSelect.appendChild(opt);
+			createPictureSelect();
+		}
+
+		/*AJAX REQUESTS */
+		function saveEntity() {
+			pictureForm.setAttribute("action", "AddPicture");
+			var result = ajaxCallEntityOperation(pictureForm);
+			if (result) {
+				pictures = getAllEntity("AllPictures");
+				clearForm();
+			}
+		}
+
+		function deleteEntity() {
+			pictureForm.setAttribute("action", "DeletePicture");
+			var result = ajaxCallEntityOperation(pictureForm);
+			if (result) {
+				pictures = getAllEntity("AllPictures");
+				clearForm();
+			}
+		}
+	</script>
+</body>
+</html>

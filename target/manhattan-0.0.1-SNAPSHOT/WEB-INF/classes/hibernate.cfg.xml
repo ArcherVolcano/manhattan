@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- Database connection settings -->
+		<property name="connection.driver.class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/volkanjv_mnhttn?autoReconnect=true&amp;useUnicode=true&amp;createDatabaseIfNotExist=true&amp;characterEncoding=utf-8</property>
+		<property name="connection.username">volkanjv_web</property>
+		<property name="connection.password">123456789</property>
+		<!--  Charset Encoding Connection -->
+		<property name="hibernate.connection.CharSet">utf8</property>
+        <property name="hibernate.connection.characterEncoding">utf8</property>
+        <property name="hibernate.connection.useUnicode">true</property>
+
+		<!-- JDBC Connection pool (user the build-in) -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- SQL Dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">false</property>
+		<property name="hibernate.format_sql">true</property>
+		
+		<!-- Drop and re-create the datbase schema on startup settings -->
+		<property name="hbm2ddl.auto">update</property>
+
+		<mapping class="manhattan.domain.impl.Event"/>
+		<mapping class="manhattan.domain.impl.Band"/>
+		<mapping class="manhattan.domain.impl.Link"/>
+		<mapping class="manhattan.domain.impl.Admin"/>
+		<mapping class="manhattan.domain.impl.Contact"/>
+		<mapping class="manhattan.domain.impl.About"/>
+
+	</session-factory>
+
+</hibernate-configuration>
